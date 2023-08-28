@@ -12,23 +12,22 @@ html {
 
 #app-body {
   position: relative;
-  min-width: 90vw;
-  min-height: 100vh;
 }
 
 #app-main-container {
+  min-height: 92vh;
   display: grid;
   grid-template-rows: 1fr auto;
   grid-template-areas:
   'content'
   'footer';
-  padding-top: 20px;
 }
 
 #app-header {
   position: sticky;
   top: 0;
   z-index: 1;
+  height: 8vh;
 }
 
 #app-content {
