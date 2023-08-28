@@ -1,0 +1,9 @@
+<button class="btn btn-info my-2" (click)="this.toggleLanguageList()">{{this.getButtonText() + ' Languages'}}</button>
+<div class="card">
+  <div class="card-header text-primary">
+    Programming Languages
+  </div>
+  <ul class="list-group" *ngIf="this.areLanguagesVisible">
+    <li class="list-group-item" *ngFor="let language of languageList">{{language}}</li>
+  </ul>
+</div>
