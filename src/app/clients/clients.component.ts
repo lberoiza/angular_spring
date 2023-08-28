@@ -1,14 +1,21 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Client} from "./client";
-import {CLIENT_LIST} from "./clients.json";
+import {ClientService} from "./client.service";
+
 
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.css']
 })
-export class ClientsComponent {
+export class ClientsComponent implements OnInit {
 
-  clientList: Client[] = CLIENT_LIST;
+  clientList: Client[] = [];
 
+  constructor(private clientService: ClientService) {
+  }
+
+  ngOnInit(): void {
+    this.clientList = this.clientService.getClients()
+  }
 }
