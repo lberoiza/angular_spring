@@ -1,1 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+#app-body {
+  position: relative;
+  min-width: 100vw;
+}
+
+#app-main-container {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+  'content'
+  'footer';
+  padding: 20px 0;
+}
+
+#app-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+#app-content {
+  grid-area: content;
+}
+
+#app-footer {
+  grid-area: footer;
+}

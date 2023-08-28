@@ -1,10 +1,14 @@
-<app-header></app-header>
-<div class="container">
-  <p id="title">{{ title }} app is running!</p>
-  <p>Created by {{ author }}</p>
-  <app-examplelist></app-examplelist>
-  <app-clients></app-clients>
+<div id="app-body">
+  <app-header></app-header>
+  <div id="app-main-container">
+    <div id="app-content" class="container">
+      <p id="title">{{ title }} app is running!</p>
+      <p>Created by {{ author }}</p>
+      <app-examplelist></app-examplelist>
+      <app-clients></app-clients>
+    </div>
+    <app-footer></app-footer>
+  </div>
 </div>
-<app-footer></app-footer>
 
 
