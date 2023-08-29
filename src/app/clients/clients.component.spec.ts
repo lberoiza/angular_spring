@@ -1,6 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ClientsComponent } from './clients.component';
+import {ClientsComponent} from './clients.component';
+import {HttpClientModule} from "@angular/common/http";
+import {LoadingClientTableComponent} from "../loading-client-table/loading-client-table.component";
 
 describe('ClientsComponent', () => {
   let component: ClientsComponent;
@@ -8,7 +10,8 @@ describe('ClientsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ClientsComponent]
+      declarations: [ClientsComponent, LoadingClientTableComponent],
+      imports: [HttpClientModule]
     });
     fixture = TestBed.createComponent(ClientsComponent);
     component = fixture.componentInstance;

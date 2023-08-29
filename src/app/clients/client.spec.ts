@@ -8,7 +8,8 @@ describe('Client', () => {
       'surname',
       'email@email.com',
       '1983-10-06',
-      '2023-08-28');
+      '2023-08-28',
+      '');
     expect(client).toBeTruthy();
   });
 });
