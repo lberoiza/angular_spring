@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
 import {Client} from "../clients/client";
+import {ClientService} from "../clients/client.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-clients-form',
@@ -12,10 +14,18 @@ export class ClientsFormComponent {
   protected client: Client = new Client();
 
 
-  save(event: SubmitEvent): void {
-    console.log("Submit Format");
-    console.log("event", event);
-    console.log("client", this.client);
+  constructor(
+    private clientService: ClientService,
+    private router: Router) {
+  }
+
+  save(_event: SubmitEvent): void {
+    this.clientService.createClient(this.client).subscribe(
+      response => {
+        this.client = response;
+        this.router.navigate(['/clients']).then(() => {});
+      }
+    );
   }
 
 }
