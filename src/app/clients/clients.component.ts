@@ -11,11 +11,16 @@ import {ClientService} from "./client.service";
 export class ClientsComponent implements OnInit {
 
   clientList: Client[] = [];
+  loading: boolean = true;
 
   constructor(private clientService: ClientService) {
   }
 
   ngOnInit(): void {
-    this.clientService.getClients().subscribe(clients => this.clientList = clients);
+    this.loading = true;
+    this.clientService.getClients().subscribe(clients => {
+      this.loading = false;
+      this.clientList = clients
+    });
   }
 }

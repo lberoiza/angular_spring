@@ -10,6 +10,7 @@ import {ClientsComponent} from './clients/clients.component';
 import {ClientService} from "./clients/client.service";
 import {RouterModule, Routes} from "@angular/router";
 import {AboutComponent} from './about/about.component';
+import { LoadingClientTableComponent } from './loading-client-table/loading-client-table.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/about', pathMatch: "full"},
@@ -26,7 +27,8 @@ const routes: Routes = [
     FooterComponent,
     ExamplelistComponent,
     ClientsComponent,
-    AboutComponent
+    AboutComponent,
+    LoadingClientTableComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
-<div class="card border-primary mb-3">
+<app-loading-client-table *ngIf="loading"></app-loading-client-table>
+<div class="card border-primary mb-3" *ngIf="!loading">
   <div class="card-header">Clients</div>
   <div class="card-body text-primary">
     <h5 class="card-title">List of Clients</h5>
@@ -11,7 +12,7 @@
         <th>Surname</th>
         <th>email</th>
         <th>Created at</th>
-        <th>Updatet at</th>
+        <th>Updated at</th>
       </tr>
       </thead>
       <tbody>
