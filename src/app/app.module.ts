@@ -10,12 +10,15 @@ import {ClientsComponent} from './clients/clients.component';
 import {ClientService} from "./clients/client.service";
 import {RouterModule, Routes} from "@angular/router";
 import {AboutComponent} from './about/about.component';
-import { LoadingClientTableComponent } from './loading-client-table/loading-client-table.component';
+import {LoadingClientTableComponent} from './loading-client-table/loading-client-table.component';
+import {ClientsFormComponent} from './clients-form/clients-form.component';
+import {FormsModule} from "@angular/forms";
 
 const routes: Routes = [
   {path: '', redirectTo: '/about', pathMatch: "full"},
   {path: 'languages', component: ExamplelistComponent},
   {path: 'clients', component: ClientsComponent},
+  {path: 'clients/new', component: ClientsFormComponent},
   {path: 'about', component: AboutComponent}
 ]
 
@@ -28,9 +31,11 @@ const routes: Routes = [
     ExamplelistComponent,
     ClientsComponent,
     AboutComponent,
-    LoadingClientTableComponent
+    LoadingClientTableComponent,
+    ClientsFormComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(routes)
