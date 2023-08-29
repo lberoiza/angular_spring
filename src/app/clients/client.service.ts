@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Client} from "./client";
 import {Observable} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,8 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 export class ClientService {
 
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
-  private urlEndPointList: string = 'http://localhost:8080/api/clients/list';
-  private urlEndPointCreate: string = 'http://localhost:8080/api/clients';
+  private urlEndPointList: string = environment.apiUrl + '/clients/list';
+  private urlEndPointCreate: string = environment.apiUrl + '/clients';
 
   constructor(private http: HttpClient) {
   }
