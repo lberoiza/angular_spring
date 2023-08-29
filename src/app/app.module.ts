@@ -18,7 +18,7 @@ const routes: Routes = [
   {path: '', redirectTo: '/about', pathMatch: "full"},
   {path: 'languages', component: ExamplelistComponent},
   {path: 'clients', component: ClientsComponent},
-  {path: 'clients/new', component: ClientsFormComponent},
+  {path: 'clients/form', component: ClientsFormComponent},
   {path: 'about', component: AboutComponent}
 ]
 
