@@ -7,6 +7,18 @@ export class Client {
   updatedAt: string;
   image: string;
 
+  public static of(client: Client):Client{
+    return new Client(
+      client.id,
+      client.name,
+      client.surname,
+      client.email,
+      client.createdAt,
+      client.updatedAt,
+      client.image
+    );
+}
+
 
   constructor(id: number | null = null,
               name: string = '',
@@ -24,8 +36,12 @@ export class Client {
     this.image = image;
   }
 
-  exist(): boolean {
+  public exist(): boolean {
     return this.id != null;
+  }
+
+  public getFullName(): string {
+    return `${this.name} ${this.surname}`;
   }
 
 }
