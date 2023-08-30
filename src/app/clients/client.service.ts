@@ -16,31 +16,32 @@ export class ClientService {
   constructor(private http: HttpClient) {
   }
 
-  getClients(): Observable<Client[]> {
-    //  Option 1
-    return this.http.get<Client[]>(this.urlEndPointList);
-
-    // Option 2
-    // import {Observable, of, map} from "rxjs";
-    // return this.http.get(this.urlEndPoint).pipe(map(response => response as Client[]));
+  public getClients(): Observable<Client[]> {
+    return this.http.get<Client[]>(this.urlEndPointList).pipe(
+      map(responseList => responseList.map(response => Client.of(response)
+    )));
   }
 
-  createClient(client: Client): Observable<Client> {
+  public createClient(client: Client): Observable<Client> {
     return this.http
       .post<Client>(this.urlEndPointClient, client, {headers: this.httpHeaders})
       .pipe(map(responseClient => Client.of(responseClient)));
   }
 
-  getClient(id: number): Observable<Client> {
+  public getClient(id: number): Observable<Client> {
     return this.http
       .get<Client>(`${this.urlEndPointClient}/${id}`)
       .pipe(map(responseClient => Client.of(responseClient)));
   }
 
-  updateClient(client: Client): Observable<Client> {
+  public updateClient(client: Client): Observable<Client> {
     return this.http
       .put<Client>(`${this.urlEndPointClient}/${client.id}`, client, {headers: this.httpHeaders})
       .pipe(map(responseClient => Client.of(responseClient)));
   }
 
+  public deleteClient(client: Client): Observable<Client> {
+    return this.http
+      .delete<Client>(`${this.urlEndPointClient}/${client.id}`, {headers: this.httpHeaders});
+  }
 }
