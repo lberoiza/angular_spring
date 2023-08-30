@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Client} from "./client";
 import {ClientService} from "./client.service";
+import {AlertService} from "../services/alert.service";
+import {AlertMessage} from "../Types";
 
 
 @Component({
@@ -13,7 +15,9 @@ export class ClientsComponent implements OnInit {
   clientList: Client[] = [];
   loading: boolean = true;
 
-  constructor(private clientService: ClientService) {
+  constructor(
+    private clientService: ClientService,
+    private alertService: AlertService) {
   }
 
   ngOnInit(): void {
@@ -23,4 +27,18 @@ export class ClientsComponent implements OnInit {
       this.clientList = clients
     });
   }
+
+  deleteClient(clientToDelete: Client): void {
+    const message: AlertMessage = {
+      title: 'Delete Client',
+      content: `Are you sure, that you want to delete '${clientToDelete.getFullName()}'`
+    };
+    this.alertService.confirmDialog(message, () => {
+      this.clientService.deleteClient(clientToDelete).subscribe(() => {
+        this.clientList = this.clientList.filter(client => client != clientToDelete);
+      });
+    })
+
+  }
+
 }

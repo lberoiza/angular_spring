@@ -5,7 +5,7 @@
     <h5 class="card-title">List of Clients</h5>
 
     <div class="my-2 text-end">
-      <button class="btn rounded-1 btn-outline-primary" [routerLink]="['/clients/form']" >New Client</button>
+      <button class="btn rounded-1 btn-outline-primary" [routerLink]="['/clients/form']">New Client</button>
     </div>
 
     <table class="table table-bordered table-striped table-hover">
@@ -28,8 +28,12 @@
         <td>{{client.email}}</td>
         <td>{{client.createdAt}}</td>
         <td>{{client.updatedAt}}</td>
-        <td class="text-center"><button class="btn btn-outline-warning" [routerLink]="['/clients/form', client.id]">Edit</button></td>
-        <td class="text-center"><button class="btn btn-outline-danger">Delete</button></td>
+        <td class="text-center">
+          <button class="btn btn-outline-warning" [routerLink]="['/clients/form', client.id]">Edit</button>
+        </td>
+        <td class="text-center">
+          <button class="btn btn-outline-danger" (click)="deleteClient(client)">Delete</button>
+        </td>
       </tr>
       </tbody>
     </table>
