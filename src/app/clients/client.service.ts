@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Client} from "./client";
-import {Observable} from "rxjs";
+import {Observable, map} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 
@@ -26,7 +26,9 @@ export class ClientService {
   }
 
   createClient(client: Client): Observable<Client> {
-    return this.http.post<Client>(this.urlEndPointCreate, client, {headers: this.httpHeaders})
+    return this.http
+      .post<Client>(this.urlEndPointCreate, client, {headers: this.httpHeaders})
+      .pipe(map( responseClient => Client.of(responseClient)));
   }
 
 }
