@@ -17,6 +17,7 @@
         <th>email</th>
         <th>Created at</th>
         <th>Updated at</th>
+        <th>Actions</th>
       </tr>
       </thead>
       <tbody>
@@ -27,6 +28,7 @@
         <td>{{client.email}}</td>
         <td>{{client.createdAt}}</td>
         <td>{{client.updatedAt}}</td>
+        <td><button class="btn btn-outline-warning" [routerLink]="['/clients/form', client.id]">Edit</button></td>
       </tr>
       </tbody>
     </table>

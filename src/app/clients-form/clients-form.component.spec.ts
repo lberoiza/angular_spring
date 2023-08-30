@@ -1,8 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ClientsFormComponent } from './clients-form.component';
+import {ClientsFormComponent} from './clients-form.component';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('ClientsFormComponent', () => {
   let component: ClientsFormComponent;
@@ -11,7 +12,7 @@ describe('ClientsFormComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ClientsFormComponent],
-      imports: [FormsModule, HttpClientModule]
+      imports: [FormsModule, HttpClientModule, RouterTestingModule]
     });
     fixture = TestBed.createComponent(ClientsFormComponent);
     component = fixture.componentInstance;

@@ -20,6 +20,7 @@ const routes: Routes = [
   {path: 'languages', component: ExamplelistComponent},
   {path: 'clients', component: ClientsComponent},
   {path: 'clients/form', component: ClientsFormComponent},
+  {path: 'clients/form/:id', component: ClientsFormComponent},
   {path: 'about', component: AboutComponent}
 ]
 

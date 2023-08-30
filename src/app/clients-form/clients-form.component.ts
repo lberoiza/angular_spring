@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Client} from "../clients/client";
 import {ClientService} from "../clients/client.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AlertService} from "../services/alert.service";
 
 
@@ -10,7 +10,7 @@ import {AlertService} from "../services/alert.service";
   templateUrl: './clients-form.component.html',
   styleUrls: ['./clients-form.component.css']
 })
-export class ClientsFormComponent {
+export class ClientsFormComponent implements OnInit {
   protected title = "New Client";
 
   protected client: Client = new Client();
@@ -19,10 +19,26 @@ export class ClientsFormComponent {
   constructor(
     private clientService: ClientService,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private alert: AlertService) {
   }
 
-  save(_event: SubmitEvent): void {
+
+  ngOnInit(): void {
+    this.getClient();
+  }
+
+
+  getClient(): void {
+    this.activatedRoute.params.subscribe(params => {
+      let id = params['id'];
+      if (id) {
+        this.clientService.getClient(id).subscribe(client => this.client = client);
+      }
+    });
+  }
+
+  saveClient(_event: SubmitEvent): void {
     this.clientService.createClient(this.client).subscribe(
       newClient => {
         this.client = newClient;
@@ -34,5 +50,6 @@ export class ClientsFormComponent {
       }
     );
   }
+
 
 }
