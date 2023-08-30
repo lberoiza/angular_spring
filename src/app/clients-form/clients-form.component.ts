@@ -3,6 +3,7 @@ import {Client} from "../clients/client";
 import {ClientService} from "../clients/client.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AlertService} from "../services/alert.service";
+import {AlertMessage} from "../Types";
 
 
 @Component({
@@ -38,17 +39,36 @@ export class ClientsFormComponent implements OnInit {
     });
   }
 
-  saveClient(_event: SubmitEvent): void {
+  saveClient(): void {
     this.clientService.createClient(this.client).subscribe(
       newClient => {
         this.client = newClient;
-        this.router.navigate(['/clients']).then(() => {
-          this.alert.showSuccess(
-            'New Client',
-            `Client "${this.client.getFullName()}" added successfully`);
-        });
+        const message: AlertMessage = {
+          title: 'New Client',
+          content: `Client "${this.client.getFullName()}" added successfully`
+        };
+        this.redirectAfterCreateOrUpdateAndShowMessage(message);
       }
     );
+  }
+
+  updateClient(): void {
+    this.clientService.updateClient(this.client).subscribe(
+      updatedClient => {
+        this.client = updatedClient;
+        const message: AlertMessage = {
+          title: 'Client updated',
+          content: `Client "${this.client.getFullName()}" updated successfully`
+        };
+        this.redirectAfterCreateOrUpdateAndShowMessage(message);
+      }
+    );
+  }
+
+  redirectAfterCreateOrUpdateAndShowMessage(message: AlertMessage) {
+    this.router.navigate(['/clients']).then(() => {
+      this.alert.showSuccess(message.title, message.content);
+    });
   }
 
 

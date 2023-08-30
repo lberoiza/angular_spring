@@ -2,8 +2,8 @@
   <div class="card-header">{{title}}</div>
   <div class="card-body">
 
-    <form (ngSubmit)="saveClient($event)">
-      <input type="hidden" *ngIf="client.exist" [(ngModel)]="client.id" name="id" id="id">
+    <form>
+      <input type="hidden" *ngIf="client.exist()" [(ngModel)]="client.id" name="id" id="id">
 
       <div class="row my-2">
         <label for="name" class="col-form-label col-sm-2">Name</label>
@@ -35,7 +35,12 @@
 
       <div class="row my-2">
         <div class="col-sm-6">
-          <button type="submit" class="btn btn-primary mx-1" name="save" role="button">Save</button>
+          <button type="button" class="btn btn-primary mx-1" name="save" role="button" (click)="saveClient()" *ngIf="!client.exist() else elseBlock">Save</button>
+          <ng-template #elseBlock>
+            <button type="button" class="btn btn-warning mx-1" name="save" role="button" (click)="updateClient()">Update</button>
+          </ng-template>
+
+
           <button type="button" class="btn btn-secondary mx-1" name="cancel" role="button" [routerLink]="['/clients']">Cancel</button>
         </div>
       </div>
