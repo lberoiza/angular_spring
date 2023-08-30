@@ -67,7 +67,7 @@ export class ClientsFormComponent implements OnInit {
 
   redirectAfterCreateOrUpdateAndShowMessage(message: AlertMessage) {
     this.router.navigate(['/clients']).then(() => {
-      this.alert.showSuccess(message.title, message.content);
+      this.alert.showSuccess(message);
     });
   }
 
