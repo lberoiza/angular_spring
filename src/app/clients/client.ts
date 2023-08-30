@@ -9,13 +9,13 @@ export class Client {
 
   public static of(client: Client):Client{
     return new Client(
-      client.id,
-      client.name,
-      client.surname,
-      client.email,
-      client.createdAt,
-      client.updatedAt,
-      client.image
+      client?.id,
+      client?.name,
+      client?.surname,
+      client?.email,
+      client?.createdAt,
+      client?.updatedAt,
+      client?.image
     );
 }
 
