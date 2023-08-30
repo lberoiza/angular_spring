@@ -13,6 +13,7 @@ import {AboutComponent} from './about/about.component';
 import {LoadingClientTableComponent} from './loading-client-table/loading-client-table.component';
 import {ClientsFormComponent} from './clients-form/clients-form.component';
 import {FormsModule} from "@angular/forms";
+import {AlertService} from "./services/alert.service";
 
 const routes: Routes = [
   {path: '', redirectTo: '/about', pathMatch: "full"},
@@ -41,6 +42,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   providers: [
+    AlertService,
     ClientService
   ],
   bootstrap: [AppComponent]
