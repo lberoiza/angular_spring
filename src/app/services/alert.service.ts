@@ -1,15 +1,43 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import sweetAlert from 'sweetalert2'
+import {AlertMessage} from "../Types";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlertService {
 
-  constructor() { }
-
-  public showSuccess(title: string, htmlContent: string){
-    sweetAlert.fire(title,htmlContent,'success').then(() => {});
+  constructor() {
   }
+
+  public showSuccess(message: AlertMessage) {
+    sweetAlert.fire(message.title, message.content, 'success').then(() => {
+    });
+  }
+
+
+  public confirmDialog(message: AlertMessage, confirmFunction: Function){
+    const swalWithBootstrapButtons = sweetAlert.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success mx-1',
+        cancelButton: 'btn btn-danger mx-1'
+      },
+      buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+      title: message.title,
+      text: message.content,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Accept',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        confirmFunction();
+      }
+    })
+  }
+
 
 }
