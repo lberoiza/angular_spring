@@ -10,9 +10,8 @@ import {environment} from "../../environments/environment";
 export class ClientService {
 
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
-  private urlEndPointList: string = environment.apiUrl + '/clients/list';
-  private urlEndPointCreate: string = environment.apiUrl + '/clients';
-  private urlEndPointGetClient: string = environment.apiUrl + '/clients/';
+  private urlEndPointClient = environment.apiUrl + '/clients';
+  private urlEndPointList: string = this.urlEndPointClient + '/list';
 
   constructor(private http: HttpClient) {
   }
@@ -28,14 +27,20 @@ export class ClientService {
 
   createClient(client: Client): Observable<Client> {
     return this.http
-      .post<Client>(this.urlEndPointCreate, client, {headers: this.httpHeaders})
-      .pipe(map( responseClient => Client.of(responseClient)));
+      .post<Client>(this.urlEndPointClient, client, {headers: this.httpHeaders})
+      .pipe(map(responseClient => Client.of(responseClient)));
   }
 
   getClient(id: number): Observable<Client> {
     return this.http
-      .get<Client>(this.urlEndPointGetClient+id)
-      .pipe(map( responseClient => Client.of(responseClient)));
+      .get<Client>(`${this.urlEndPointClient}/${id}`)
+      .pipe(map(responseClient => Client.of(responseClient)));
+  }
+
+  updateClient(client: Client): Observable<Client> {
+    return this.http
+      .put<Client>(`${this.urlEndPointClient}/${client.id}`, client, {headers: this.httpHeaders})
+      .pipe(map(responseClient => Client.of(responseClient)));
   }
 
 }
