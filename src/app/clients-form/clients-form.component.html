@@ -2,27 +2,58 @@
   <div class="card-header">{{title}}</div>
   <div class="card-body">
 
-    <form>
+    <form #clientForm="ngForm">
       <input type="hidden" *ngIf="client.exist()" [(ngModel)]="client.id" name="id" id="id">
 
       <div class="row my-2">
         <label for="name" class="col-form-label col-sm-2">Name</label>
         <div class="col-sm-6">
-          <input type="text" name="name" id="name" class="form-control" [(ngModel)]="client.name">
+          <input type="text" name="name" id="name" class="form-control" [(ngModel)]="client.name" required minlength="4" #name="ngModel">
+          <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+            <ul>
+              <li *ngIf="name.errors?.['required']">
+                <span class="error-message">Name is required</span>
+              </li>
+              <li *ngIf="name.errors?.['minlength']">
+                <span class="error-message">Name must have at least 4 characters</span>
+              </li>
+            </ul>
+          </div>
+
         </div>
       </div>
 
       <div class="row my-2">
         <label for="surname" class="col-form-label col-sm-2">Surname</label>
         <div class="col-sm-6">
-          <input type="text" name="surname" id="surname" class="form-control" [(ngModel)]="client.surname" required>
+          <input type="text" name="surname" id="surname" class="form-control" [(ngModel)]="client.surname" required minlength="4" #surname="ngModel">
+          <div class="alert alert-danger" *ngIf="surname.invalid && (surname.dirty || surname.touched)">
+            <ul>
+              <li *ngIf="surname.errors?.['required']">
+                <span class="error-message">Surname is required</span>
+              </li>
+              <li *ngIf="surname.errors?.['minlength']">
+                <span class="error-message">Surname must have at least 4 characters</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
       <div class="row my-2">
         <label for="email" class="col-form-label col-sm-2">Email</label>
         <div class="col-sm-6">
-          <input type="email" name="email" id="email" class="form-control" [(ngModel)]="client.email" required>
+          <input type="email" name="email" id="email" class="form-control" [(ngModel)]="client.email" required email #email="ngModel">
+          <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+            <ul>
+              <li *ngIf="email.errors?.['required']">
+                <span class="error-message">Email is required</span>
+              </li>
+              <li *ngIf="email.errors?.['email']">
+                <span class="error-message">Please write a valid email</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -35,9 +66,14 @@
 
       <div class="row my-2">
         <div class="col-sm-6">
-          <button type="button" class="btn btn-primary mx-1" name="save" role="button" (click)="saveClient()" *ngIf="!client.exist() else elseBlock">Save</button>
+          <button type="button" class="btn btn-primary mx-1" name="save" role="button"
+                  [disabled]="!clientForm.form.valid"
+                  (click)="saveClient()"
+                  *ngIf="!client.exist() else elseBlock">Save</button>
           <ng-template #elseBlock>
-            <button type="button" class="btn btn-warning mx-1" name="save" role="button" (click)="updateClient()">Update</button>
+            <button type="button" class="btn btn-warning mx-1" name="save" role="button"
+                    [disabled]="!clientForm.form.valid"
+                    (click)="updateClient()">Update</button>
           </ng-template>
 
 
