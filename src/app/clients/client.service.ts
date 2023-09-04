@@ -67,7 +67,7 @@ export class ClientService {
     }
     const alertMessage: AlertMessage = {
       title: 'Error',
-      content: apiResponse.getErrorsMessages().join(',')
+      content: apiResponse.getErrorsMessages().join(', ')
     };
     this.alert.showError(alertMessage);
     return throwError(e);
