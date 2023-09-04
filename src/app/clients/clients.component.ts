@@ -36,6 +36,11 @@ export class ClientsComponent implements OnInit {
     this.alertService.confirmDialog(message, () => {
       this.clientService.deleteClient(clientToDelete).subscribe(() => {
         this.clientList = this.clientList.filter(client => client != clientToDelete);
+        const successMessage: AlertMessage = {
+          title: `Client '${clientToDelete.getFullName()}' deleted`,
+          content: `The Client was successfully deleted`
+        };
+        this.alertService.showSuccess(successMessage);
       });
     })
 
