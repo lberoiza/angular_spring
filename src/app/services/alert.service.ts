@@ -11,8 +11,11 @@ export class AlertService {
   }
 
   public showSuccess(message: AlertMessage) {
-    sweetAlert.fire(message.title, message.content, 'success').then(() => {
-    });
+    sweetAlert.fire(message.title, message.content, 'success').then();
+  }
+
+  public showError(message: AlertMessage) {
+    sweetAlert.fire(message.title, message.content, 'error').then();
   }
 
 
