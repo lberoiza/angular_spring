@@ -2,6 +2,10 @@
   <div class="card-header">{{title}}</div>
   <div class="card-body">
 
+    <ul class="alert alert-danger mb-3" *ngIf="validationErrors.length > 0">
+      <li class="ms-3" *ngFor="let error of validationErrors">{{error}}</li>
+    </ul>
+
     <form #clientForm="ngForm">
       <input type="hidden" *ngIf="client.exist()" [(ngModel)]="client.id" name="id" id="id">
 

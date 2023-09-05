@@ -61,6 +61,10 @@ export class ClientService {
 
   private errorHandler(e: any, navigateTo: string = "") {
     const apiResponse = new ApiResponse<Client>(e.error as ApiResponseTyp<Client>);
+    if(apiResponse.hasValidationErrors()){
+      return throwError(e);
+    }
+
     if(navigateTo.length > 0){
       this.router.navigate([navigateTo]).then();
     }

@@ -3,6 +3,7 @@ import {Client} from "../clients/client";
 import {ClientService} from "../clients/client.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AlertService, AlertMessage} from "../services/alert.service";
+import ApiResponse, {ApiResponseTyp} from "../Utils/ApiResponse";
 
 
 @Component({
@@ -12,8 +13,8 @@ import {AlertService, AlertMessage} from "../services/alert.service";
 })
 export class ClientsFormComponent implements OnInit {
   protected title = "New Client";
-
   protected client: Client = new Client();
+  protected validationErrors: string[] = [];
 
 
   constructor(
@@ -29,45 +30,66 @@ export class ClientsFormComponent implements OnInit {
   }
 
 
-  getClient(): void {
+  private getClient(): void {
     this.activatedRoute.params.subscribe(params => {
       let id = params['id'];
       if (id) {
+        this.title = "Update Client";
         this.clientService.getClient(id).subscribe(client => this.client = client);
       }
     });
   }
 
-  saveClient(): void {
+  protected saveClient(): void {
     this.clientService.createClient(this.client).subscribe(
-      newClient => {
-        this.client = newClient;
-        const message: AlertMessage = {
-          title: 'New Client',
-          content: `Client "${this.client.getFullName()}" added successfully`
-        };
-        this.redirectAfterCreateOrUpdateAndShowMessage(message);
+      {
+        next: newClient => {
+          this.client = newClient;
+          const message: AlertMessage = {
+            title: 'New Client',
+            content: `Client "${this.client.getFullName()}" added successfully`
+          };
+          this.redirectAfterCreateOrUpdateAndShowMessage(message);
+        },
+        error: err => this.analyseApiResponse(err.error as ApiResponseTyp<Client>)
       }
     );
   }
 
-  updateClient(): void {
+  protected updateClient(): void {
     this.clientService.updateClient(this.client).subscribe(
-      updatedClient => {
-        this.client = updatedClient;
-        const message: AlertMessage = {
-          title: 'Client updated',
-          content: `Client "${this.client.getFullName()}" updated successfully`
-        };
-        this.redirectAfterCreateOrUpdateAndShowMessage(message);
+      {
+        next: updatedClient => {
+          this.client = updatedClient;
+          const message: AlertMessage = {
+            title: 'Client updated',
+            content: `Client "${this.client.getFullName()}" updated successfully`
+          };
+          this.redirectAfterCreateOrUpdateAndShowMessage(message);
+        },
+        error: err => this.analyseApiResponse(err.error as ApiResponseTyp<Client>)
       }
     );
   }
 
-  redirectAfterCreateOrUpdateAndShowMessage(message: AlertMessage) {
+  private redirectAfterCreateOrUpdateAndShowMessage(message: AlertMessage) {
     this.router.navigate(['/clients']).then(() => {
       this.alert.showSuccess(message);
     });
+  }
+
+  private analyseApiResponse(apiResponseTyp: ApiResponseTyp<Client>) {
+    if (apiResponseTyp) {
+      const apiResponse: ApiResponse<Client> = new ApiResponse(apiResponseTyp);
+      this.checkForValidationErrors(apiResponse);
+    }
+  }
+
+  private checkForValidationErrors(apiResponse: ApiResponse<Client>) {
+    if (apiResponse.hasValidationErrors()) {
+      this.validationErrors = apiResponse.getErrorsMessages();
+      this.validationErrors.sort();
+    }
   }
 
 
