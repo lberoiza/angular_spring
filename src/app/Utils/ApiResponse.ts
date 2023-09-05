@@ -1,6 +1,14 @@
-import {ApiResponseTyp} from "../Types";
+export type ApiResponseTyp<T> = {
+  messages: {[key: string]: string[]},
+  isSuccessfully: boolean,
+  httpStatus: string,
+  httpCode: number,
+  response: T
+};
 
 export default class ApiResponse<T>{
+
+  public static HTTP_STATUS_UNPROCESSABLE_ENTITY = 422;
 
   private static MESSAGE_SUCCESS = 'success';
   private static MESSAGE_WARNING = 'warning';
@@ -16,6 +24,9 @@ export default class ApiResponse<T>{
     return this.apiResponse.isSuccessfully;
   }
 
+  public hasErrors(): boolean {
+    return !this.apiResponse.isSuccessfully;
+  }
 
   public hasSuccessMessages(): boolean {
     return this.getSuccessMessages().length > 0;
@@ -40,6 +51,11 @@ export default class ApiResponse<T>{
   public getErrorsMessages(): string[] {
     return this.apiResponse.messages[ApiResponse.MESSAGE_ERROR];
   }
+
+  public hasValidationErrors(): boolean {
+    return this.apiResponse.httpCode == ApiResponse.HTTP_STATUS_UNPROCESSABLE_ENTITY;
+  }
+
 
   public setResponse(response: T){
     this.response = response;

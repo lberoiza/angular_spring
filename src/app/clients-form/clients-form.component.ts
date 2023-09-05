@@ -2,8 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Client} from "../clients/client";
 import {ClientService} from "../clients/client.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {AlertService} from "../services/alert.service";
-import {AlertMessage} from "../Types";
+import {AlertService, AlertMessage} from "../services/alert.service";
 
 
 @Component({

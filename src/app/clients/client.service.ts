@@ -3,10 +3,9 @@ import {Client} from "./client";
 import {Observable, map, catchError, throwError} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {AlertMessage, ApiResponseTyp} from "../Types";
-import ApiResponse from "../Utils/ApiResponse";
+import ApiResponse, {ApiResponseTyp} from "../Utils/ApiResponse";
 import {Router} from "@angular/router";
-import {AlertService} from "../services/alert.service";
+import {AlertService, AlertMessage} from "../services/alert.service";
 
 
 @Injectable({

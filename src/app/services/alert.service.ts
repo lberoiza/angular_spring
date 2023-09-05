@@ -1,6 +1,10 @@
 import {Injectable} from '@angular/core';
 import sweetAlert from 'sweetalert2'
-import {AlertMessage} from "../Types";
+
+export type AlertMessage = {
+  title: string,
+  content: string
+};
 
 @Injectable({
   providedIn: 'root'

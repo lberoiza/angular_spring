@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Client} from "./client";
 import {ClientService} from "./client.service";
-import {AlertService} from "../services/alert.service";
-import {AlertMessage} from "../Types";
+import {AlertService, AlertMessage} from "../services/alert.service";
 
 
 @Component({
