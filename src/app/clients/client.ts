@@ -1,3 +1,6 @@
+import {formatDate} from '@angular/common'
+import {environment} from '../../environments/environment'
+
 export class Client {
   id: number | null;
   name: string;
@@ -42,6 +45,14 @@ export class Client {
 
   public getFullName(): string {
     return `${this.name} ${this.surname}`;
+  }
+
+  public getFormatedCreatedAt(){
+    return formatDate(this.updatedAt, environment.dateFormat, environment.location);
+  }
+
+  public getFormatedUpdatedAt(){
+    return formatDate(this.createdAt, environment.dateFormat, environment.location);
   }
 
 }
