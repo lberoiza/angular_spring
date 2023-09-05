@@ -48,11 +48,11 @@ export class Client {
   }
 
   public getFormatedCreatedAt(){
-    return formatDate(this.updatedAt, environment.dateFormat, environment.location);
+    return formatDate(this.createdAt, environment.dateFormat, environment.location);
   }
 
   public getFormatedUpdatedAt(){
-    return formatDate(this.createdAt, environment.dateFormat, environment.location);
+    return formatDate(this.updatedAt, environment.dateFormat, environment.location);
   }
 
 }
