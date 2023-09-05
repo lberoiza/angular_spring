@@ -14,6 +14,10 @@ import {LoadingClientTableComponent} from './loading-client-table/loading-client
 import {ClientsFormComponent} from './clients-form/clients-form.component';
 import {FormsModule} from "@angular/forms";
 import {AlertService} from "./services/alert.service";
+import initializeLocale from "../location";
+
+initializeLocale();
+
 
 const routes: Routes = [
   {path: '', redirectTo: '/about', pathMatch: "full"},
