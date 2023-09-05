@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {HttpClientModule} from "@angular/common/http";
 
@@ -15,6 +15,7 @@ import {ClientsFormComponent} from './clients-form/clients-form.component';
 import {FormsModule} from "@angular/forms";
 import {AlertService} from "./services/alert.service";
 import initializeLocale from "../location";
+import {environment} from "../environments/environment";
 
 initializeLocale();
 
@@ -48,7 +49,8 @@ const routes: Routes = [
   ],
   providers: [
     AlertService,
-    ClientService
+    ClientService,
+    {provide: LOCALE_ID, useValue: environment.location}
   ],
   bootstrap: [AppComponent]
 })
