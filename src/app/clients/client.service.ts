@@ -6,6 +6,7 @@ import {environment} from "../../environments/environment";
 import ApiResponse, {ApiResponseTyp} from "../Utils/ApiResponse";
 import {Router} from "@angular/router";
 import {AlertService, AlertMessage} from "../services/alert.service";
+import {Pageable} from "../Types";
 
 
 @Injectable({
@@ -15,6 +16,7 @@ export class ClientService {
 
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
   private urlEndPointClient = environment.apiUrl + '/clients';
+  private urlEndPointClientPageable = environment.apiUrl + '/clients/page';
   private urlEndPointList: string = this.urlEndPointClient + '/list';
 
   constructor(
@@ -26,7 +28,18 @@ export class ClientService {
   public getClients(): Observable<Client[]> {
     return this.http.get<ApiResponseTyp<Client[]>>(this.urlEndPointList)
       .pipe(map(apiResponse => apiResponse.response.map(response => Client.of(response)
-    )));
+      )));
+  }
+
+
+  public getClientPageable(pageNumber: number): Observable<Pageable<Client[]>> {
+    return this.http.get<ApiResponseTyp<Pageable<Client[]>>>(`${this.urlEndPointClientPageable}/${pageNumber}`)
+      .pipe(
+        map(apiResponse => {
+          apiResponse.response.content = apiResponse.response.content.map(client => Client.of(client));
+          return apiResponse.response;
+        })
+      );
   }
 
   public createClient(client: Client): Observable<Client> {
@@ -61,11 +74,11 @@ export class ClientService {
 
   private errorHandler(e: any, navigateTo: string = "") {
     const apiResponse = new ApiResponse<Client>(e.error as ApiResponseTyp<Client>);
-    if(apiResponse.hasValidationErrors()){
+    if (apiResponse.hasValidationErrors()) {
       return throwError(e);
     }
 
-    if(navigateTo.length > 0){
+    if (navigateTo.length > 0) {
       this.router.navigate([navigateTo]).then();
     }
     const alertMessage: AlertMessage = {

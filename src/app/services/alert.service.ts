@@ -18,6 +18,10 @@ export class AlertService {
     sweetAlert.fire(message.title, message.content, 'success').then();
   }
 
+  public showWarning(message: AlertMessage) {
+    sweetAlert.fire(message.title, message.content, 'warning').then();
+  }
+
   public showError(message: AlertMessage) {
     sweetAlert.fire(message.title, message.content, 'error').then();
   }

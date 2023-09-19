@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {Client} from "./client";
 import {ClientService} from "./client.service";
 import {AlertService, AlertMessage} from "../services/alert.service";
+import {ActivatedRoute} from "@angular/router";
+import ApiResponse, {ApiResponseTyp} from "../Utils/ApiResponse";
+import {Pageable} from "../Types";
 
 
 @Component({
@@ -16,16 +19,30 @@ export class ClientsComponent implements OnInit {
 
   constructor(
     private clientService: ClientService,
+    private activatedRoute: ActivatedRoute,
     private alertService: AlertService) {
   }
 
   ngOnInit(): void {
     this.loading = true;
-    this.clientService.getClients().subscribe(clients => {
-      this.loading = false;
-      this.clientList = clients
+    this.activatedRoute.params.subscribe(params => {
+      let pageNumber: number = parseInt(params['pageNr']);
+      if (isNaN(pageNumber)) {
+        pageNumber = 0;
+      }
+      this.clientService.getClientPageable(pageNumber).subscribe(
+        pageable => {
+          this.clientList = pageable.content;
+          this.loading = false;
+        },
+        err => {
+          this.clientList = []
+          this.loading = false;
+        }
+      );
     });
   }
+
 
   deleteClient(clientToDelete: Client): void {
     const message: AlertMessage = {
