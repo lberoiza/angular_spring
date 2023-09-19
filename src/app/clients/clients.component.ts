@@ -43,7 +43,6 @@ export class ClientsComponent implements OnInit {
     });
   }
 
-
   deleteClient(clientToDelete: Client): void {
     const message: AlertMessage = {
       title: 'Delete Client',
