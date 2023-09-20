@@ -3,9 +3,7 @@ import {Client} from "./client";
 import {ClientService} from "./client.service";
 import {AlertService, AlertMessage} from "../services/alert.service";
 import {ActivatedRoute} from "@angular/router";
-import ApiResponse, {ApiResponseTyp} from "../Utils/ApiResponse";
-import {Pageable} from "../Types";
-
+import {emptyPageable, Pageable} from "../../types"
 
 @Component({
   selector: 'app-clients',
@@ -16,6 +14,7 @@ export class ClientsComponent implements OnInit {
 
   clientList: Client[] = [];
   loading: boolean = true;
+  pageable: Pageable<Client[]> = emptyPageable(this.clientList);
 
   constructor(
     private clientService: ClientService,
@@ -32,6 +31,7 @@ export class ClientsComponent implements OnInit {
       }
       this.clientService.getClientPageable(pageNumber).subscribe(
         pageable => {
+          this.pageable = pageable;
           this.clientList = pageable.content;
           this.loading = false;
         },

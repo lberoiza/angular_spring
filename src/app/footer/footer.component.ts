@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Author} from '../Types'
+import {Author} from "../../types";
 
 
 @Component({

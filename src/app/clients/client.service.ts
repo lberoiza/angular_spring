@@ -6,7 +6,7 @@ import {environment} from "../../environments/environment";
 import ApiResponse, {ApiResponseTyp} from "../Utils/ApiResponse";
 import {Router} from "@angular/router";
 import {AlertService, AlertMessage} from "../services/alert.service";
-import {Pageable} from "../Types";
+import {Pageable} from "../../types";
 
 
 @Injectable({
