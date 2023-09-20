@@ -16,6 +16,7 @@ import {FormsModule} from "@angular/forms";
 import {AlertService} from "./services/alert.service";
 import initializeLocale from "../location";
 import {environment} from "../environments/environment";
+import { PaginatorComponent } from './paginator/paginator.component';
 
 initializeLocale();
 
@@ -40,7 +41,8 @@ const routes: Routes = [
     ClientsComponent,
     AboutComponent,
     LoadingClientTableComponent,
-    ClientsFormComponent
+    ClientsFormComponent,
+    PaginatorComponent
   ],
   imports: [
     FormsModule,
