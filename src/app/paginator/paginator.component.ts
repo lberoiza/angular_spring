@@ -11,7 +11,7 @@ export class PaginatorComponent implements OnChanges {
   @Input() paginator: Pageable<any> = emptyPageable([]);
   protected paginatorPages: number[] = [];
 
-  private pagesToShow = 3;
+  private pagesToShowBeforeAndAfterCurrentPage = 2;
   private from: number = 0;
   private until: number = 0;
 
@@ -21,18 +21,14 @@ export class PaginatorComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
 
-    this.from = Math.min(Math.max(1, this.paginator.number - (this.pagesToShow-1)), this.paginator.totalPages - this.pagesToShow);
-    this.until = Math.max(Math.min(this.paginator.totalPages, this.paginator.number + this.pagesToShow), this.pagesToShow+1);
+    const currentPage = this.paginator.number;
+    const possibleUntil = Math.max(currentPage, this.pagesToShowBeforeAndAfterCurrentPage);
 
 
-    let nrElementsOfPaginator = 0;
-    if (this.paginator.totalPages > this.pagesToShow) {
-      nrElementsOfPaginator = this.until - this.from + 1;
-    } else {
-      nrElementsOfPaginator = this.paginator.totalPages;
-    }
+    this.from = Math.max(1, (currentPage + 1) - this.pagesToShowBeforeAndAfterCurrentPage);
+    this.until = Math.min(this.paginator.totalPages, possibleUntil + this.pagesToShowBeforeAndAfterCurrentPage + 1);
 
-    this.paginatorPages = new Array(nrElementsOfPaginator)
+    this.paginatorPages = new Array(this.until - this.from + 1)
       .fill(0)
       .map((_, index) => index + this.from);
   }
