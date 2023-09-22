@@ -22,10 +22,11 @@ export class PaginatorComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
 
     const currentPage = this.paginator.number;
+    const possibleFrom = Math.min(currentPage, this.paginator.totalPages - this.pagesToShowBeforeAndAfterCurrentPage - 1);
     const possibleUntil = Math.max(currentPage, this.pagesToShowBeforeAndAfterCurrentPage);
 
 
-    this.from = Math.max(1, (currentPage + 1) - this.pagesToShowBeforeAndAfterCurrentPage);
+    this.from = Math.max(1, (possibleFrom + 1) - this.pagesToShowBeforeAndAfterCurrentPage);
     this.until = Math.min(this.paginator.totalPages, possibleUntil + this.pagesToShowBeforeAndAfterCurrentPage + 1);
 
     this.paginatorPages = new Array(this.until - this.from + 1)
