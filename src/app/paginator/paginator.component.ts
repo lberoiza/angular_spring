@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {emptyPageable, Pageable} from "../../types";
 
 @Component({
@@ -6,7 +6,7 @@ import {emptyPageable, Pageable} from "../../types";
   templateUrl: './paginator.component.html',
   styleUrls: ['./paginator.component.css']
 })
-export class PaginatorComponent implements OnChanges {
+export class PaginatorComponent implements OnInit, OnChanges {
 
   @Input() paginator: Pageable<any> = emptyPageable([]);
   protected paginatorPages: number[] = [];
@@ -19,12 +19,22 @@ export class PaginatorComponent implements OnChanges {
   constructor() {
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnInit(): void {
+    this.updatePaginatorPages();
+  }
 
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const updatedPaginator = changes['paginator'];
+    if (updatedPaginator.previousValue) {
+      this.updatePaginatorPages();
+    }
+  }
+
+  private updatePaginatorPages(): void {
     const currentPage = this.paginator.number;
     const possibleFrom = Math.min(currentPage, this.paginator.totalPages - this.pagesToShowBeforeAndAfterCurrentPage - 1);
     const possibleUntil = Math.max(currentPage, this.pagesToShowBeforeAndAfterCurrentPage);
-
 
     this.from = Math.max(1, (possibleFrom + 1) - this.pagesToShowBeforeAndAfterCurrentPage);
     this.until = Math.min(this.paginator.totalPages, possibleUntil + this.pagesToShowBeforeAndAfterCurrentPage + 1);
