@@ -6,6 +6,7 @@ export class Client {
   name: string;
   surname: string;
   email: string;
+  dateOfBirth: string;
   createdAt: string;
   updatedAt: string;
   image: string;
@@ -16,6 +17,7 @@ export class Client {
       client?.name,
       client?.surname,
       client?.email,
+      client?.dateOfBirth,
       client?.createdAt,
       client?.updatedAt,
       client?.image
@@ -27,6 +29,7 @@ export class Client {
               name: string = '',
               surname: string = '',
               email: string = '',
+              dateOfBirth: string = '',
               createdAt: string = '',
               updatedAt: string = '',
               image: string = '') {
@@ -34,6 +37,7 @@ export class Client {
     this.name = name;
     this.surname = surname;
     this.email = email;
+    this.dateOfBirth = dateOfBirth;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.image = image;
@@ -45,6 +49,10 @@ export class Client {
 
   public getFullName(): string {
     return `${this.name} ${this.surname}`;
+  }
+
+  public getFormatedDateOfBirth(){
+    return formatDate(this.dateOfBirth, environment.dateFormat, environment.location);
   }
 
   public getFormatedCreatedAt(){
