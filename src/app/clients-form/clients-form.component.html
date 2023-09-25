@@ -61,6 +61,22 @@
         </div>
       </div>
 
+
+      <div class="row my-2">
+        <label for="date-of-birth" class="col-form-label col-sm-2">Date of Birth</label>
+        <div class="col-sm-6">
+          <input type="date" name="dateOfBirth" id="date-of-birth" class="form-control" [(ngModel)]="client.dateOfBirth" required #dateOfBirth="ngModel">
+          <div class="alert alert-danger" *ngIf="dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched)">
+            <ul>
+              <li *ngIf="dateOfBirth.errors?.['required']">
+                <span class="error-message">Date of Birth is required</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
 <!--      <div class="row my-2">-->
 <!--        <label for="image" class="col-form-label col-sm-2">Image</label>-->
 <!--        <div class="col-sm-6">-->
