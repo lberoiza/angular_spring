@@ -2,27 +2,39 @@
   <div class="card-header">{{title}}</div>
   <div class="card-body">
 
-    <ul class="alert alert-danger mb-3" *ngIf="validationErrors.length > 0">
-      <li class="ms-3" *ngFor="let error of validationErrors">{{error}}</li>
-    </ul>
+    @if (validationErrors.length > 0) {
+      <ul class="alert alert-danger mb-3">
+        @for (error of validationErrors; track error) {
+          <li class="ms-3">{{error}}</li>
+        }
+      </ul>
+    }
 
     <form #clientForm="ngForm">
-      <input type="hidden" *ngIf="client.exist()" [(ngModel)]="client.id" name="id" id="id">
+      @if (client.exist()) {
+        <input type="hidden" [(ngModel)]="client.id" name="id" id="id">
+      }
 
       <div class="row my-2">
         <label for="name" class="col-form-label col-sm-2">Name</label>
         <div class="col-sm-6">
           <input type="text" name="name" id="name" class="form-control" [(ngModel)]="client.name" required minlength="4" #name="ngModel">
-          <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
-            <ul>
-              <li *ngIf="name.errors?.['required']">
-                <span class="error-message">Name is required</span>
-              </li>
-              <li *ngIf="name.errors?.['minlength']">
-                <span class="error-message">Name must have at least 4 characters</span>
-              </li>
-            </ul>
-          </div>
+          @if (name.invalid && (name.dirty || name.touched)) {
+            <div class="alert alert-danger">
+              <ul>
+                @if (name.errors?.['required']) {
+                  <li>
+                    <span class="error-message">Name is required</span>
+                  </li>
+                }
+                @if (name.errors?.['minlength']) {
+                  <li>
+                    <span class="error-message">Name must have at least 4 characters</span>
+                  </li>
+                }
+              </ul>
+            </div>
+          }
 
         </div>
       </div>
@@ -31,16 +43,22 @@
         <label for="surname" class="col-form-label col-sm-2">Surname</label>
         <div class="col-sm-6">
           <input type="text" name="surname" id="surname" class="form-control" [(ngModel)]="client.surname" required minlength="4" #surname="ngModel">
-          <div class="alert alert-danger" *ngIf="surname.invalid && (surname.dirty || surname.touched)">
-            <ul>
-              <li *ngIf="surname.errors?.['required']">
-                <span class="error-message">Surname is required</span>
-              </li>
-              <li *ngIf="surname.errors?.['minlength']">
-                <span class="error-message">Surname must have at least 4 characters</span>
-              </li>
-            </ul>
-          </div>
+          @if (surname.invalid && (surname.dirty || surname.touched)) {
+            <div class="alert alert-danger">
+              <ul>
+                @if (surname.errors?.['required']) {
+                  <li>
+                    <span class="error-message">Surname is required</span>
+                  </li>
+                }
+                @if (surname.errors?.['minlength']) {
+                  <li>
+                    <span class="error-message">Surname must have at least 4 characters</span>
+                  </li>
+                }
+              </ul>
+            </div>
+          }
         </div>
       </div>
 
@@ -48,16 +66,22 @@
         <label for="email" class="col-form-label col-sm-2">Email</label>
         <div class="col-sm-6">
           <input type="email" name="email" id="email" class="form-control" [(ngModel)]="client.email" required email #email="ngModel">
-          <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
-            <ul>
-              <li *ngIf="email.errors?.['required']">
-                <span class="error-message">Email is required</span>
-              </li>
-              <li *ngIf="email.errors?.['email']">
-                <span class="error-message">Please write a valid email</span>
-              </li>
-            </ul>
-          </div>
+          @if (email.invalid && (email.dirty || email.touched)) {
+            <div class="alert alert-danger">
+              <ul>
+                @if (email.errors?.['required']) {
+                  <li>
+                    <span class="error-message">Email is required</span>
+                  </li>
+                }
+                @if (email.errors?.['email']) {
+                  <li>
+                    <span class="error-message">Please write a valid email</span>
+                  </li>
+                }
+              </ul>
+            </div>
+          }
         </div>
       </div>
 
@@ -66,41 +90,46 @@
         <label for="date-of-birth" class="col-form-label col-sm-2">Date of Birth</label>
         <div class="col-sm-6">
           <input type="date" name="dateOfBirth" id="date-of-birth" class="form-control" [(ngModel)]="client.dateOfBirth" required #dateOfBirth="ngModel">
-          <div class="alert alert-danger" *ngIf="dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched)">
-            <ul>
-              <li *ngIf="dateOfBirth.errors?.['required']">
-                <span class="error-message">Date of Birth is required</span>
-              </li>
-            </ul>
-          </div>
+          @if (dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched)) {
+            <div class="alert alert-danger">
+              <ul>
+                @if (dateOfBirth.errors?.['required']) {
+                  <li>
+                    <span class="error-message">Date of Birth is required</span>
+                  </li>
+                }
+              </ul>
+            </div>
+          }
         </div>
       </div>
 
 
-<!--      <div class="row my-2">-->
-<!--        <label for="image" class="col-form-label col-sm-2">Image</label>-->
-<!--        <div class="col-sm-6">-->
-<!--          <input type="file" name="image" id="image" class="form-control" [(ngModel)]="client.image">-->
-<!--        </div>-->
-<!--      </div>-->
+      <!--      <div class="row my-2">-->
+      <!--        <label for="image" class="col-form-label col-sm-2">Image</label>-->
+      <!--        <div class="col-sm-6">-->
+      <!--          <input type="file" name="image" id="image" class="form-control" [(ngModel)]="client.image">-->
+    <!--        </div>-->
+  <!--      </div>-->
 
-      <div class="row my-2">
-        <div class="col-sm-6">
-          <button type="button" class="btn btn-primary mx-1" name="save" role="button"
-                  [disabled]="!clientForm.form.valid"
-                  (click)="saveClient()"
-                  *ngIf="!client.exist() else elseBlock">Save</button>
-          <ng-template #elseBlock>
-            <button type="button" class="btn btn-warning mx-1" name="save" role="button"
-                    [disabled]="!clientForm.form.valid"
-                    (click)="updateClient()">Update</button>
-          </ng-template>
+  <div class="row my-2">
+    <div class="col-sm-6">
+      @if (!client.exist()) {
+        <button type="button" class="btn btn-primary mx-1" name="save" role="button"
+          [disabled]="!clientForm.form.valid"
+          (click)="saveClient()"
+        >Save</button>
+      } @else {
+        <button type="button" class="btn btn-warning mx-1" name="save" role="button"
+          [disabled]="!clientForm.form.valid"
+        (click)="updateClient()">Update</button>
+      }
 
 
-          <button type="button" class="btn btn-secondary mx-1" name="cancel" role="button" [routerLink]="['/clients']">Cancel</button>
-        </div>
-      </div>
-
-    </form>
+      <button type="button" class="btn btn-secondary mx-1" name="cancel" role="button" [routerLink]="['/clients']">Cancel</button>
+    </div>
   </div>
+
+</form>
+</div>
 </div>

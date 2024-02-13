@@ -6,14 +6,14 @@ import { ActivatedRoute, RouterLink } from "@angular/router";
 import {emptyPageable, Pageable} from "../../types"
 import { PaginatorComponent } from '../paginator/paginator.component';
 import { LoadingClientTableComponent } from '../loading-client-table/loading-client-table.component';
-import { NgIf, NgFor, LowerCasePipe } from '@angular/common';
+import { LowerCasePipe } from '@angular/common';
 
 @Component({
     selector: 'app-clients',
     templateUrl: './clients.component.html',
     styleUrls: ['./clients.component.css'],
     standalone: true,
-    imports: [NgIf, LoadingClientTableComponent, RouterLink, PaginatorComponent, NgFor, LowerCasePipe]
+    imports: [LoadingClientTableComponent, RouterLink, PaginatorComponent, LowerCasePipe]
 })
 export class ClientsComponent implements OnInit {
 

@@ -5,7 +5,7 @@ import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import {AlertService, AlertMessage} from "../services/alert.service";
 import ApiResponse, {ApiResponseTyp} from "../Utils/ApiResponse";
 import { FormsModule } from '@angular/forms';
-import { NgIf, NgFor } from '@angular/common';
+
 
 
 @Component({
@@ -13,7 +13,7 @@ import { NgIf, NgFor } from '@angular/common';
     templateUrl: './clients-form.component.html',
     styleUrls: ['./clients-form.component.css'],
     standalone: true,
-    imports: [NgIf, NgFor, FormsModule, RouterLink]
+    imports: [FormsModule, RouterLink]
 })
 export class ClientsFormComponent implements OnInit {
   protected title = "New Client";

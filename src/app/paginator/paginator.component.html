@@ -7,10 +7,16 @@
     <a class="page-link" [routerLink]="['/clients/page', paginator.number-1]">&laquo;</a>
   </li>
 
-  <li class="page-item" *ngFor="let pageNr of paginatorPages">
-    <span class="page-link active" *ngIf="pageNr-1 === paginator.number">{{pageNr}}</span>
-    <a class="page-link" *ngIf="pageNr-1 !== paginator.number" [routerLink]="['/clients/page', pageNr-1]">{{pageNr}}</a>
-  </li>
+  @for (pageNr of paginatorPages; track pageNr) {
+    <li class="page-item">
+      @if (pageNr-1 === paginator.number) {
+        <span class="page-link active">{{pageNr}}</span>
+      }
+      @if (pageNr-1 !== paginator.number) {
+        <a class="page-link" [routerLink]="['/clients/page', pageNr-1]">{{pageNr}}</a>
+      }
+    </li>
+  }
 
   <li class="page-item" [ngClass]="paginator.last ? 'disabled' : ''">
     <a class="page-link" [routerLink]="['/clients/page', paginator.number+1]">&raquo;</a>

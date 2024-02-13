@@ -3,7 +3,11 @@
   <div class="card-header text-primary">
     Programming Languages
   </div>
-  <ul class="list-group" *ngIf="this.areLanguagesVisible">
-    <li class="list-group-item" *ngFor="let language of languageList">{{language}}</li>
-  </ul>
+  @if (this.areLanguagesVisible) {
+    <ul class="list-group">
+      @for (language of languageList; track language) {
+        <li class="list-group-item">{{language}}</li>
+      }
+    </ul>
+  }
 </div>
