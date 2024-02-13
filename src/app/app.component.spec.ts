@@ -6,9 +6,8 @@ import {FooterComponent} from "./footer/footer.component";
 
 describe('AppComponent', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    declarations: [AppComponent, HeaderComponent, FooterComponent],
-    imports: [RouterOutlet]
-  }));
+    imports: [RouterOutlet, AppComponent, HeaderComponent, FooterComponent]
+}));
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);

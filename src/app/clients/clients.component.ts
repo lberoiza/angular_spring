@@ -2,13 +2,18 @@ import {Component, OnInit} from '@angular/core';
 import {Client} from "./client";
 import {ClientService} from "./client.service";
 import {AlertService, AlertMessage} from "../services/alert.service";
-import {ActivatedRoute} from "@angular/router";
+import { ActivatedRoute, RouterLink } from "@angular/router";
 import {emptyPageable, Pageable} from "../../types"
+import { PaginatorComponent } from '../paginator/paginator.component';
+import { LoadingClientTableComponent } from '../loading-client-table/loading-client-table.component';
+import { NgIf, NgFor, LowerCasePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-clients',
-  templateUrl: './clients.component.html',
-  styleUrls: ['./clients.component.css']
+    selector: 'app-clients',
+    templateUrl: './clients.component.html',
+    styleUrls: ['./clients.component.css'],
+    standalone: true,
+    imports: [NgIf, LoadingClientTableComponent, RouterLink, PaginatorComponent, NgFor, LowerCasePipe]
 })
 export class ClientsComponent implements OnInit {
 
