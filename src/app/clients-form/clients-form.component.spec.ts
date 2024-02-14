@@ -11,9 +11,8 @@ describe('ClientsFormComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ClientsFormComponent],
-      imports: [FormsModule, HttpClientModule, RouterTestingModule]
-    });
+    imports: [FormsModule, HttpClientModule, RouterTestingModule, ClientsFormComponent]
+});
     fixture = TestBed.createComponent(ClientsFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

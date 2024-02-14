@@ -8,8 +8,8 @@ describe('PaginatorComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PaginatorComponent]
-    });
+    imports: [PaginatorComponent]
+});
     fixture = TestBed.createComponent(PaginatorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -1,15 +1,19 @@
 import {Component, OnInit} from '@angular/core';
 import {Client} from "../clients/client";
 import {ClientService} from "../clients/client.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import {AlertService, AlertMessage} from "../services/alert.service";
 import ApiResponse, {ApiResponseTyp} from "../Utils/ApiResponse";
+import { FormsModule } from '@angular/forms';
+
 
 
 @Component({
-  selector: 'app-clients-form',
-  templateUrl: './clients-form.component.html',
-  styleUrls: ['./clients-form.component.css']
+    selector: 'app-clients-form',
+    templateUrl: './clients-form.component.html',
+    styleUrls: ['./clients-form.component.css'],
+    standalone: true,
+    imports: [FormsModule, RouterLink]
 })
 export class ClientsFormComponent implements OnInit {
   protected title = "New Client";

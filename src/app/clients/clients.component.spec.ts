@@ -10,9 +10,8 @@ describe('ClientsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ClientsComponent, LoadingClientTableComponent],
-      imports: [HttpClientModule]
-    });
+    imports: [HttpClientModule, ClientsComponent, LoadingClientTableComponent]
+});
     fixture = TestBed.createComponent(ClientsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -1,49 +1,57 @@
-<app-loading-client-table *ngIf="loading"></app-loading-client-table>
-<div class="card border-primary mb-3" *ngIf="!loading">
-  <div class="card-header">Clients</div>
-  <div class="card-body text-primary">
-    <h5 class="card-title">List of Clients</h5>
-
-    <div class="my-2 text-end">
-      <button class="btn rounded-1 btn-outline-primary" [routerLink]="['/clients/form']">New Client</button>
-    </div>
-
-    <ng-template #NoRecords>
-      <div class="alert alert-info">
-        There are no clients to show!
+@if (loading) {
+  <app-loading-client-table></app-loading-client-table>
+}
+@if (!loading) {
+  <div class="card border-primary mb-3">
+    <div class="card-header">Clients</div>
+    <div class="card-body text-primary">
+      <h5 class="card-title">List of Clients</h5>
+      <div class="my-2 text-end">
+        <button class="btn rounded-1 btn-outline-primary" [routerLink]="['/clients/form']">New Client</button>
       </div>
-    </ng-template>
-
-    <paginator-nav *ngIf="pageable" [paginator]="pageable"/>
-    <table class="table table-bordered table-striped table-hover" *ngIf="clientList.length > 0 else NoRecords">
-      <thead class="text-center">
-      <tr>
-        <th>id</th>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>email</th>
-        <th>Created at</th>
-        <th>Updated at</th>
-        <th colspan="2">Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr class="text-center" *ngFor="let client of clientList">
-        <td>{{client.id}}</td>
-        <td>{{client.name}}</td>
-        <td>{{client.surname}}</td>
-        <td>{{client.email | lowercase}}</td>
-        <td>{{client.getFormatedCreatedAt()}}</td>
-        <td>{{client.getFormatedUpdatedAt()}}</td>
-        <td>
-          <button class="btn btn-outline-warning" [routerLink]="['/clients/form', client.id]">Edit</button>
-        </td>
-        <td class="text-center">
-          <button class="btn btn-outline-danger" (click)="deleteClient(client)">Delete</button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-    <paginator-nav *ngIf="pageable" [paginator]="pageable"/>
+      @if (pageable) {
+        <paginator-nav [paginator]="pageable"/>
+      }
+      @if (clientList.length > 0) {
+        <table class="table table-bordered table-striped table-hover">
+          <thead class="text-center">
+            <tr>
+              <th>id</th>
+              <th>Name</th>
+              <th>Surname</th>
+              <th>email</th>
+              <th>Created at</th>
+              <th>Updated at</th>
+              <th colspan="2">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (client of clientList; track client) {
+              <tr class="text-center">
+                <td>{{client.id}}</td>
+                <td>{{client.name}}</td>
+                <td>{{client.surname}}</td>
+                <td>{{client.email | lowercase}}</td>
+                <td>{{client.getFormatedCreatedAt()}}</td>
+                <td>{{client.getFormatedUpdatedAt()}}</td>
+                <td>
+                  <button class="btn btn-outline-warning" [routerLink]="['/clients/form', client.id]">Edit</button>
+                </td>
+                <td class="text-center">
+                  <button class="btn btn-outline-danger" (click)="deleteClient(client)">Delete</button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      } @else {
+        <div class="alert alert-info">
+          There are no clients to show!
+        </div>
+      }
+      @if (pageable) {
+        <paginator-nav [paginator]="pageable"/>
+      }
+    </div>
   </div>
-</div>
+}

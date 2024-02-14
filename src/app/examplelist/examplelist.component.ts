@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 
+
 @Component({
-  selector: 'app-examplelist',
-  templateUrl: './examplelist.component.html',
-  styleUrls: ['./examplelist.component.css']
+    selector: 'app-examplelist',
+    templateUrl: './examplelist.component.html',
+    styleUrls: ['./examplelist.component.css'],
+    standalone: true,
+    imports: []
 })
 export class ExamplelistComponent {
   languageList: string[] = ['Java EE', 'Ruby', 'PHP', 'Python', 'Pearl', 'TypeScript', 'JavaScript'];

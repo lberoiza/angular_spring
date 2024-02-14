@@ -1,10 +1,14 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {emptyPageable, Pageable} from "../../types";
+import { RouterLink } from '@angular/router';
+import { NgClass } from '@angular/common';
 
 @Component({
-  selector: 'paginator-nav',
-  templateUrl: './paginator.component.html',
-  styleUrls: ['./paginator.component.css']
+    selector: 'paginator-nav',
+    templateUrl: './paginator.component.html',
+    styleUrls: ['./paginator.component.css'],
+    standalone: true,
+    imports: [NgClass, RouterLink]
 })
 export class PaginatorComponent implements OnInit, OnChanges {
 
